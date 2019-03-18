@@ -23,7 +23,7 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { erros, isValid } = validatePostInput(req.body);
+    const { errors, isValid } = validatePostInput(req.body);
 
     // Check validation
     if (!isValid) {
@@ -163,7 +163,7 @@ router.post(
   '/comment/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { erros, isValid } = validatePostInput(req.body);
+    const { errors, isValid } = validatePostInput(req.body);
 
     // Check validation
     if (!isValid) {
@@ -176,7 +176,7 @@ router.post(
         const newComment = {
           text: req.body.text,
           name: req.body.name,
-          body: req.body.avatar,
+          avatar: req.body.avatar,
           user: req.user.id
         };
 
