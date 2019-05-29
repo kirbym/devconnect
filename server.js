@@ -1,16 +1,14 @@
-const express = require('express');
+const express = require('express'); // body parser is part of express
 const connectDB = require('./config/db');
-const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
 
-// Body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 // Connect Database
 connectDB();
+
+// Body parser middleware
+app.use(express.json({ extended: false }));
 
 // Use Routes
 app.use('/api/auth', require('./routes/api/auth'));

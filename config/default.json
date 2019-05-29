@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://michael:michael1@kirby-cluster-4tjlo.mongodb.net/test?retryWrites=true"
+  "mongoURI": "mongodb+srv://michael:michael1@kirby-cluster-4tjlo.mongodb.net/test?retryWrites=true",
+  "jwtSecret": "secrettoken"
 }
