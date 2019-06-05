@@ -8,6 +8,7 @@ const config = require('config');
 // Load Profile and User Models
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route   GET api/profile/test
 // @desc    Tests profile route
@@ -320,7 +321,8 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @access  Private
 router.delete('/', auth, async (req, res) => {
   try {
-    // TODO: Remove user's posts
+    // Remove user's posts
+    await Post.deleteMany({ user: req.user.id });
 
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
