@@ -3,7 +3,10 @@ import {
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
-  ADD_POST
+  ADD_POST,
+  GET_SINGLE_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +22,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        loading: false
+      };
+    case GET_SINGLE_POST:
+      return {
+        ...state,
+        post: action.payload,
         loading: false
       };
     case ADD_POST:
@@ -47,6 +56,23 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== action.payload),
+        loading: false
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        post: { ...state.post, comments: action.payload },
+        loading: false
+      };
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(
+            comment => action.payload !== comment._id
+          )
+        },
         loading: false
       };
     default:
