@@ -1,6 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://michael:michael1@kirby-cluster-4tjlo.mongodb.net/test?retryWrites=true",
-  "jwtSecret": "secrettoken",
-  "githubClientID": "6088b3e429930a5cf992",
-  "githubClientSecret": "e2874f400b3a3b1f30e75c581678e915b258fde5"
-}
