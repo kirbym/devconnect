@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'); // body parser is part of express
 const connectDB = require('./config/db');
 const path = require('path');
