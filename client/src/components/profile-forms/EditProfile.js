@@ -1,54 +1,63 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment, useEffect, useReducer } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
+// Small reducer to handle updating the state when
+// input fields are changed
+const formUpdateReducer = (state, action) => {
+  return {
+    ...state,
+    [action.type]: action.payload
+  };
+};
+
+// Logic to initialize starting state
+// Shape of state is set below when returning the object
+const initializeState = profileStateSlice => {
+  const { loading, profile } = profileStateSlice;
+
+  return {
+    company: loading || !profile.company ? '' : profile.company,
+    website: loading || !profile.website ? '' : profile.website,
+    location: loading || !profile.location ? '' : profile.location,
+    status: loading || !profile.status ? '' : profile.status,
+    skills: loading || !profile.skills ? '' : profile.skills.join(','),
+    githubusername:
+      loading || !profile.githubusername ? '' : profile.githubusername,
+    bio: loading || !profile.bio ? '' : profile.bio,
+    twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
+    facebook:
+      loading || !profile.social.facebook ? '' : profile.social.facebook,
+    linkedin:
+      loading || !profile.social.linkedin ? '' : profile.social.linkedin,
+    youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
+    instagram:
+      loading || !profile.social.instagram ? '' : profile.social.instagram
+  };
+};
+
 const EditProfile = ({
-  profile: { profile, loading },
+  profileSlice,
   createProfile,
   getCurrentProfile,
   history
 }) => {
-  const [formData, setFormData] = useState({
-    company: '',
-    website: '',
-    location: '',
-    status: '',
-    skills: '',
-    githubusername: '',
-    bio: '',
-    twitter: '',
-    facebook: '',
-    linkedin: '',
-    youtube: '',
-    instagram: ''
-  });
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-  useEffect(() => {
-    getCurrentProfile();
-
-    setFormData({
-      company: loading || !profile.company ? '' : profile.company,
-      website: loading || !profile.website ? '' : profile.website,
-      location: loading || !profile.location ? '' : profile.location,
-      status: loading || !profile.status ? '' : profile.status,
-      skills: loading || !profile.skills ? '' : profile.skills.join(','),
-      githubusername:
-        loading || !profile.githubusername ? '' : profile.githubusername,
-      bio: loading || !profile.bio ? '' : profile.bio,
-      twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
-      facebook:
-        loading || !profile.social.facebook ? '' : profile.social.facebook,
-      linkedin:
-        loading || !profile.social.linkedin ? '' : profile.social.linkedin,
-      youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
-      instagram:
-        loading || !profile.social.instagram ? '' : profile.social.instagram
-    });
-  }, [loading, getCurrentProfile]);
+  // 'useReducer' instead of 'useState' so that the profile (and all of its fields) is
+  // not a dependency of the 'useEffect' (where the profile fields were
+  // being updated before)
+  const [profileInfo, dispatch] = useReducer(
+    formUpdateReducer,
+    profileSlice,
+    initializeState
+  );
 
   const {
     company,
@@ -63,14 +72,18 @@ const EditProfile = ({
     linkedin,
     youtube,
     instagram
-  } = formData;
+  } = profileInfo;
 
+  // dispatch (from useReducer above) action with
+  // type: event.target.name and
+  // payload: event.target.value
+  // to trigger state update
   const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    dispatch({ type: e.target.name, payload: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    createProfile(profileInfo, history, true);
   };
 
   return (
@@ -251,11 +264,11 @@ const EditProfile = ({
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profileSlice: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profileSlice: state.profile
 });
 
 export default connect(
