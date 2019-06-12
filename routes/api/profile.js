@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator/check');
 const request = require('request');
-// const config = require('config');
+const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require('../../config/keys');
 
 // Load Profile and User Models
 const Profile = require('../../models/Profile');
@@ -342,21 +342,10 @@ router.delete('/', auth, async (req, res) => {
 // @access  Private
 router.get('/github/:username', (req, res) => {
   try {
-    // const options = {
-    //   uri: `https://api.github.com/users/${
-    //     req.params.username
-    //   }/repos?per_page=5&sort=created:asc&client_id=${config.get(
-    //     'githubClientID'
-    //   )}&client_secret=${config.get('githubClientSecret')}`,
-    //   method: 'GET',
-    //   headers: { 'user-agent': 'node.js' }
-    // };
     const options = {
       uri: `https://api.github.com/users/${
         req.params.username
-      }/repos?per_page=5&sort=created:asc&client_id=${
-        process.env.GITHUB_CLIENT_ID
-      }&client_secret=${process.env.GITHUB_CLIENT_SECRET}`,
+      }/repos?per_page=5&sort=created:asc&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`,
       method: 'GET',
       headers: { 'user-agent': 'node.js' }
     };

@@ -4,7 +4,7 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator/check');
-//const config = require('config');
+const { JWT_SECRET } = require('../../config/keys');
 
 // Load User model
 const User = require('../../models/User');
@@ -75,16 +75,10 @@ router.post(
         }
       };
 
-      jwt.sign(
-        payload,
-        // config.get('jwtSecret'),
-        process.env.JWT_SECRET,
-        { expiresIn: 3600 },
-        (err, token) => {
-          if (err) throw err;
-          return res.json({ token });
-        }
-      );
+      jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+        if (err) throw err;
+        return res.json({ token });
+      });
     } catch (err) {
       console.error(err.message);
       return res.status(500).send('Server error');
