@@ -134,7 +134,7 @@ router.put('/like/:id', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
-    post.likes.unshift({ user: req.user.id });
+    post.likes.push({ user: req.user.id });
 
     await post.save();
 
@@ -222,7 +222,7 @@ router.post(
         user: user.id
       };
 
-      post.comments.unshift(newComment);
+      post.comments.push(newComment);
 
       await post.save();
 
