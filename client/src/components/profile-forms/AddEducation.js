@@ -57,7 +57,7 @@ const AddEducation = ({ addEducation, history }) => {
         <div className="form-group">
           <input
             type="text"
-            placeholder="* Degree"
+            placeholder="* Degree (Bachelor, Master, etc.)"
             name="degree"
             value={degree}
             onChange={e => onChange(e)}
