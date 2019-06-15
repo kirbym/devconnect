@@ -2,10 +2,6 @@
   "name": "devconnect",
   "version": "1.0.0",
   "description": "Social network for developers",
-  "engines": {
-    "node": "10.16.0",
-    "npm": "6.9.0"
-  },
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
