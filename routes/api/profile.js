@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator/check');
 const request = require('request');
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require('../../config/keys');
+const setTimezoneOffset = require('../../util/timezone');
 
 // Load Profile and User Models
 const Profile = require('../../models/Profile');
@@ -173,15 +174,14 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
-      title,
-      company,
-      location,
-      from,
-      to,
-      current,
-      description
-    } = req.body;
+    const { title, company, location, current, description } = req.body;
+
+    // 'from' and 'to' dates were not being instantiated properly
+    // with the correct timezone
+    // adjusted the date by adding(subtracting) the timezone offset
+    // (in minutes) which brings the date to UTC time
+    const from = setTimezoneOffset(req.body.from);
+    const to = setTimezoneOffset(req.body.to);
 
     const newExp = {
       title,
@@ -236,15 +236,14 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
-      school,
-      degree,
-      fieldofstudy,
-      from,
-      to,
-      current,
-      description
-    } = req.body;
+    const { school, degree, fieldofstudy, current, description } = req.body;
+
+    // 'from' and 'to' dates were not being instantiated properly
+    // with the correct timezone
+    // adjusted the date by adding(subtracting) the timezone offset
+    // (in minutes) which brings the date to UTC time
+    const from = setTimezoneOffset(req.body.from);
+    const to = setTimezoneOffset(req.body.to);
 
     const newEdu = {
       school,
