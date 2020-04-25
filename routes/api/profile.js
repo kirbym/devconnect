@@ -338,15 +338,17 @@ router.delete('/', auth, async (req, res) => {
 
 // @route   GET api/profile/github/:username
 // @desc    Get user repos from GitHub
-// @access  Private
+// @access  Public
 router.get('/github/:username', (req, res) => {
   try {
     const options = {
-      uri: `https://api.github.com/users/${
-        req.params.username
-      }/repos?per_page=5&sort=created:asc&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`,
+      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`,
       method: 'GET',
-      headers: { 'user-agent': 'node.js' }
+      headers: { 'user-agent': 'node.js' },
+      auth: {
+        user: GITHUB_CLIENT_ID,
+        password: GITHUB_CLIENT_SECRET
+      }
     };
 
     request(options, (error, response, body) => {
