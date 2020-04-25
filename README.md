@@ -69,3 +69,23 @@ Quick start
    - Use **`npm run server`** to start the server with nodemon, which will automatically restart the server after making changes
    - Use **`npm run client`** to start only the frontend React development server, changes will be updated automatically but there will not be a connection to the API
    - Use **`npm run dev`** to start both the React development server and the backend server (with nodemon), where both servers will restart automatically after changes
+
+
+#### Deploying the app
+
+If you would like to take the project and deploy it out into the real world, you can use [Heroku](https://www.heroku.com) to deploy the app.
+
+1. Create a Heroku account.
+2. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), this will allow you to deploy the app from the command line via Git.
+3. In your terminal, run **`heroku login`** and follow the prompts.
+4. Use **`heroku create`** to generate the project for you. This will generate an app name, like "aqueous-ravine-34057," for your project. This will also create a remote for you to push your changes to and automatically build the app.
+5. Commit any changes you have to Git, if you haven't done so already. Then use the command **`git push heroku master`**. This will build and deploy the app for you.
+6. Then, you can open the link provided in the deploy process to view and use your app. For example, go to https://aqueous-ravine-34057.herokuapp.com/ to view the app.
+
+If you are like me and sometimes find yourself on a new machine but still want to deploy updates to the app, follow these steps.
+1. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), if not done already.
+2. In your terminal, run **`heroku login`** and follow the prompts.
+3. Commit/push any changes you may have, if not done so already.
+4. Set a heroku remote for your project with the command, **`heroku git:remote -a <project name>`**.
+5. Then, trigger the build and deploy with your changes using the command, **`git push heroku master`**.
+6. Open the link provided in the deploy process to view and use your app. For example, go to https://aqueous-ravine-34057.herokuapp.com/ to view the app.
