@@ -165,11 +165,11 @@ router.put(
 
     const { title, company, location, current, description } = req.body;
 
-    const from = new moment(req.body.from);
+    const from = new moment.utc(req.body.from);
 
     let to = null;
     if (req.body.to !== "") {
-      to = new moment(req.body.to);
+      to = new moment.utc(req.body.to);
     }
 
     const newExp = {
@@ -219,11 +219,11 @@ router.put(
 
     const { school, degree, fieldofstudy, current, description } = req.body;
 
-    const from = new moment(req.body.from);
+    const from = new moment.utc(req.body.from);
 
     let to = null;
     if (req.body.to !== "") {
-      to = new moment(req.body.to);
+      to = new moment.utc(req.body.to);
     }
 
     const newEdu = {
