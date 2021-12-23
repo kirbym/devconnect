@@ -1,29 +1,29 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { check, validationResult } = require('express-validator/check');
-const User = require('../../models/User');
-const { JWT_SECRET } = require('../../config/keys');
+const auth = require("../../middleware/auth");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { check, validationResult } = require("express-validator");
+const User = require("../../models/User");
+const { JWT_SECRET } = require("../../config/keys");
 
 // @route   GET api/auth/test
 // @desc    Tests auth route
 // @access  Public
-router.get('/test', (req, res) => {
-  res.json({ message: 'auth route works' });
+router.get("/test", (req, res) => {
+  res.json({ message: "auth route works" });
 });
 
 // @route   GET api/auth
 // @desc    Gets current authenticated user
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select("-password");
     return res.json(user);
   } catch (err) {
     console.error(err.message);
-    return res.status(500).send('Server error');
+    return res.status(500).send("Server error");
   }
 });
 
@@ -31,10 +31,10 @@ router.get('/', auth, async (req, res) => {
 // @desc    Authenticate user & get token
 // @access  Public
 router.post(
-  '/',
+  "/",
   [
-    check('email', 'Sign in email is required').isEmail(),
-    check('password', 'Password is required').exists()
+    check("email", "Sign in email is required").isEmail(),
+    check("password", "Password is required").exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -50,7 +50,7 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials' }] });
+          .json({ errors: [{ msg: "Invalid credentials" }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -58,13 +58,13 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials' }] });
+          .json({ errors: [{ msg: "Invalid credentials" }] });
       }
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
@@ -73,7 +73,7 @@ router.post(
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send("Server error");
     }
   }
 );
