@@ -1,41 +1,48 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Register from "../auth/Register";
+import Login from "../auth/Login";
+import Alert from "../layout/Alert";
+import Dashboard from "../dashboard/Dashboard";
+import PrivateRoute from "../routing/PrivateRoute";
+import CreateProfile from "../profile-forms/CreateProfile";
+import EditProfile from "../profile-forms/EditProfile";
+import AddExperience from "../profile-forms/AddExperience";
+import AddEducation from "../profile-forms/AddEducation";
+import Profiles from "../profiles/Profiles";
+import Profile from "../profile/Profile";
+import Posts from "../posts/Posts";
+import Post from "../post/Post";
+import NotFound from "../layout/NotFound";
 
-import Register from '../auth/Register';
-import Login from '../auth/Login';
-import Alert from '../layout/Alert';
-import Dashboard from '../dashboard/Dashboard';
-import PrivateRoute from '../routing/PrivateRoute';
-import CreateProfile from '../profile-forms/CreateProfile';
-import EditProfile from '../profile-forms/EditProfile';
-import AddExperience from '../profile-forms/AddExperience';
-import AddEducation from '../profile-forms/AddEducation';
-import Profiles from '../profiles/Profiles';
-import Profile from '../profile/Profile';
-import Posts from '../posts/Posts';
-import Post from '../post/Post';
-import NotFound from '../layout/NotFound';
-
-const Routes = () => {
+const AppRoutes = () => {
   return (
     <section className="container">
       <Alert />
-      <Switch>
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/profiles" component={Profiles} />
-        <Route exact path="/profile/:id" component={Profile} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-        <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-        <PrivateRoute exact path="/add-experience" component={AddExperience} />
-        <PrivateRoute exact path="/add-education" component={AddEducation} />
-        <PrivateRoute exact path="/posts" component={Posts} />
-        <PrivateRoute exact path="/post/:postId" component={Post} />
-        <Route component={NotFound} />
-      </Switch>
+      <Routes>
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/profiles" element={<Profiles />} />
+        <Route exact path="/profile/:id" element={<Profile />} />
+        <PrivateRoute exact path="/dashboard" element={<Dashboard />} />
+        <PrivateRoute
+          exact
+          path="/create-profile"
+          element={<CreateProfile />}
+        />
+        <PrivateRoute exact path="/edit-profile" element={<EditProfile />} />
+        <PrivateRoute
+          exact
+          path="/add-experience"
+          element={<AddExperience />}
+        />
+        <PrivateRoute exact path="/add-education" element={<AddEducation />} />
+        <PrivateRoute exact path="/posts" element={<Posts />} />
+        <PrivateRoute exact path="/post/:postId" element={<Post />} />
+        <Route element={<NotFound />} />
+      </Routes>
     </section>
   );
 };
 
-export default Routes;
+export default AppRoutes;
