@@ -1,3 +1,6 @@
+// This file has been deprecated. All routes have moved to App.js.
+// See issue #17.
+
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Register from '../auth/Register';
@@ -20,25 +23,17 @@ const AppRoutes = () => {
     <section className="container">
       <Alert />
       <Routes>
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/profiles" element={<Profiles />} />
-        <Route exact path="/profile/:id" element={<Profile />} />
-        <PrivateRoute exact path="/dashboard" element={<Dashboard />} />
-        <PrivateRoute
-          exact
-          path="/create-profile"
-          element={<CreateProfile />}
-        />
-        <PrivateRoute exact path="/edit-profile" element={<EditProfile />} />
-        <PrivateRoute
-          exact
-          path="/add-experience"
-          element={<AddExperience />}
-        />
-        <PrivateRoute exact path="/add-education" element={<AddEducation />} />
-        <PrivateRoute exact path="/posts" element={<Posts />} />
-        <PrivateRoute exact path="/post/:postId" element={<Post />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profiles" element={<Profiles />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <PrivateRoute path="/dashboard" element={<Dashboard />} />
+        <PrivateRoute path="/create-profile" element={<CreateProfile />} />
+        <PrivateRoute path="/edit-profile" element={<EditProfile />} />
+        <PrivateRoute path="/add-experience" element={<AddExperience />} />
+        <PrivateRoute path="/add-education" element={<AddEducation />} />
+        <PrivateRoute path="/posts" element={<Posts />} />
+        <PrivateRoute path="/post/:postId" element={<Post />} />
         <Route element={<NotFound />} />
       </Routes>
     </section>
