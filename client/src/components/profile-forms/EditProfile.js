@@ -1,54 +1,51 @@
-import React, { useState, Fragment, useEffect, useReducer } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createProfile, getCurrentProfile } from '../../actions/profile';
+import React, { useState, Fragment, useEffect, useReducer } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createProfile, getCurrentProfile } from "../../actions/profile";
 
 // Small reducer to handle updating the state when
 // input fields are changed
 const formUpdateReducer = (state, action) => {
   return {
     ...state,
-    [action.type]: action.payload
+    [action.type]: action.payload,
   };
 };
 
 // Logic to initialize starting state
 // Shape of state is set below when returning the object
-const initializeState = profileStateSlice => {
+const initializeState = (profileStateSlice) => {
   const { loading, profile } = profileStateSlice;
 
   return {
-    company: loading || !profile.company ? '' : profile.company,
-    website: loading || !profile.website ? '' : profile.website,
-    location: loading || !profile.location ? '' : profile.location,
-    status: loading || !profile.status ? '' : profile.status,
-    skills: loading || !profile.skills ? '' : profile.skills.join(','),
+    company: loading || !profile.company ? "" : profile.company,
+    website: loading || !profile.website ? "" : profile.website,
+    location: loading || !profile.location ? "" : profile.location,
+    status: loading || !profile.status ? "" : profile.status,
+    skills: loading || !profile.skills ? "" : profile.skills.join(","),
     githubusername:
-      loading || !profile.githubusername ? '' : profile.githubusername,
-    bio: loading || !profile.bio ? '' : profile.bio,
-    twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
+      loading || !profile.githubusername ? "" : profile.githubusername,
+    bio: loading || !profile.bio ? "" : profile.bio,
+    twitter: loading || !profile.social.twitter ? "" : profile.social.twitter,
     facebook:
-      loading || !profile.social.facebook ? '' : profile.social.facebook,
+      loading || !profile.social.facebook ? "" : profile.social.facebook,
     linkedin:
-      loading || !profile.social.linkedin ? '' : profile.social.linkedin,
-    youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
+      loading || !profile.social.linkedin ? "" : profile.social.linkedin,
+    youtube: loading || !profile.social.youtube ? "" : profile.social.youtube,
     instagram:
-      loading || !profile.social.instagram ? '' : profile.social.instagram
+      loading || !profile.social.instagram ? "" : profile.social.instagram,
   };
 };
 
-const EditProfile = ({
-  profileSlice,
-  createProfile,
-  getCurrentProfile,
-  history
-}) => {
+const EditProfile = ({ profileSlice, createProfile, getCurrentProfile }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  const navigate = useNavigate();
 
   // 'useReducer' instead of 'useState' so that the profile (and all of its fields) is
   // not a dependency of the 'useEffect' (where the profile fields were
@@ -71,19 +68,19 @@ const EditProfile = ({
     facebook,
     linkedin,
     youtube,
-    instagram
+    instagram,
   } = profileInfo;
 
   // dispatch (from useReducer above) action with
   // type: event.target.name and
   // payload: event.target.value
   // to trigger state update
-  const onChange = e =>
+  const onChange = (e) =>
     dispatch({ type: e.target.name, payload: e.target.value });
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(profileInfo, history, true);
+    createProfile(profileInfo, navigate, true);
   };
 
   return (
@@ -94,9 +91,9 @@ const EditProfile = ({
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={e => onSubmit(e)}>
+      <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
-          <select name="status" value={status} onChange={e => onChange(e)}>
+          <select name="status" value={status} onChange={(e) => onChange(e)}>
             <option value="0">* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
@@ -117,7 +114,7 @@ const EditProfile = ({
             placeholder="Company"
             name="company"
             value={company}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className="form-text">
             Could be your own company or one you work for
@@ -129,7 +126,7 @@ const EditProfile = ({
             placeholder="Website"
             name="website"
             value={website}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className="form-text">
             Could be your own or a company website
@@ -141,7 +138,7 @@ const EditProfile = ({
             placeholder="Location"
             name="location"
             value={location}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className="form-text">
             City &amp; state suggested (eg. Boston, MA)
@@ -153,7 +150,7 @@ const EditProfile = ({
             placeholder="* Skills"
             name="skills"
             value={skills}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className="form-text">
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
@@ -165,7 +162,7 @@ const EditProfile = ({
             placeholder="Github Username"
             name="githubusername"
             value={githubusername}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className="form-text">
             If you want your latest repos and a Github link, include your
@@ -177,7 +174,7 @@ const EditProfile = ({
             placeholder="A short bio of yourself"
             name="bio"
             value={bio}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className="form-text">Tell us a little about yourself</small>
         </div>
@@ -202,7 +199,7 @@ const EditProfile = ({
                 placeholder="Twitter URL"
                 name="twitter"
                 value={twitter}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -213,7 +210,7 @@ const EditProfile = ({
                 placeholder="Facebook URL"
                 name="facebook"
                 value={facebook}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -224,7 +221,7 @@ const EditProfile = ({
                 placeholder="YouTube URL"
                 name="youtube"
                 value={youtube}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -235,7 +232,7 @@ const EditProfile = ({
                 placeholder="Linkedin URL"
                 name="linkedin"
                 value={linkedin}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -246,7 +243,7 @@ const EditProfile = ({
                 placeholder="Instagram URL"
                 name="instagram"
                 value={instagram}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
           </Fragment>
@@ -264,14 +261,13 @@ const EditProfile = ({
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profileSlice: PropTypes.object.isRequired
+  profileSlice: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profileSlice: state.profile
+const mapStateToProps = (state) => ({
+  profileSlice: state.profile,
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile }
-)(withRouter(EditProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  EditProfile
+);
