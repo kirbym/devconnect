@@ -17,7 +17,7 @@ const ProfileGithub = ({ githubusername, getGithubRepos, repos }) => {
       {repos === null ? (
         <Spinner />
       ) : (
-        repos.map(repo => (
+        repos.map((repo) => (
           <div key={repo.id} className="repo bg-white p-1 my-1">
             <div>
               <h4>
@@ -55,11 +55,8 @@ ProfileGithub.propTypes = {
   repos: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   repos: state.profile.repos
 });
 
-export default connect(
-  mapStateToProps,
-  { getGithubRepos }
-)(ProfileGithub);
+export default connect(mapStateToProps, { getGithubRepos })(ProfileGithub);

@@ -13,7 +13,7 @@ const PostForm = ({ addPost }) => {
       </div>
       <form
         className="form my-1"
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           addPost({ text });
           setText('');
@@ -22,7 +22,7 @@ const PostForm = ({ addPost }) => {
         <textarea
           name="text"
           value={text}
-          onChange={e => setText(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           cols="30"
           rows="5"
           placeholder="Create a post"
@@ -38,7 +38,4 @@ PostForm.propTypes = {
   addPost: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  { addPost }
-)(PostForm);
+export default connect(null, { addPost })(PostForm);

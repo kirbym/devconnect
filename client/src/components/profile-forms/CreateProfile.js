@@ -1,25 +1,25 @@
-import React, { useState, Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
+import React, { useState, Fragment } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
 
 const CreateProfile = ({ createProfile }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    company: "",
-    website: "",
-    location: "",
-    status: "",
-    skills: "",
-    githubusername: "",
-    bio: "",
-    twitter: "",
-    facebook: "",
-    linkedin: "",
-    youtube: "",
-    instagram: "",
+    company: '',
+    website: '',
+    location: '',
+    status: '',
+    skills: '',
+    githubusername: '',
+    bio: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    youtube: '',
+    instagram: ''
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -36,7 +36,7 @@ const CreateProfile = ({ createProfile }) => {
     facebook,
     linkedin,
     youtube,
-    instagram,
+    instagram
   } = formData;
 
   const onChange = (e) =>
@@ -226,7 +226,7 @@ const CreateProfile = ({ createProfile }) => {
 };
 
 CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired
 };
 
 export default connect(null, { createProfile })(CreateProfile);

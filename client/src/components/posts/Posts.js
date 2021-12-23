@@ -21,7 +21,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       </p>
       <PostForm />
       <div className="posts">
-        {posts.map(post => (
+        {posts.map((post) => (
           <PostItem key={post._id} post={post} />
         ))}
       </div>
@@ -34,11 +34,8 @@ Posts.propTypes = {
   post: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   post: state.post
 });
 
-export default connect(
-  mapStateToProps,
-  { getPosts }
-)(Posts);
+export default connect(mapStateToProps, { getPosts })(Posts);

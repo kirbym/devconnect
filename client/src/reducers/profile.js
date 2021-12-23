@@ -4,15 +4,15 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
-} from "../actions/types";
+  GET_REPOS
+} from '../actions/types';
 
 const initialState = {
   profile: null,
   profiles: [],
   repos: [],
   loading: true,
-  error: {},
+  error: {}
 };
 
 export default function (state = initialState, action) {
@@ -22,33 +22,33 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: action.payload,
-        loading: false,
+        loading: false
       };
     case GET_PROFILES:
       return {
         ...state,
         profiles: action.payload,
-        loading: false,
+        loading: false
       };
     case PROFILE_ERROR:
       return {
         ...state,
         error: action.payload,
         profile: null,
-        loading: false,
+        loading: false
       };
     case CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
         repos: [],
-        loading: false,
+        loading: false
       };
     case GET_REPOS:
       return {
         ...state,
         repos: action.payload,
-        loading: false,
+        loading: false
       };
     default:
       return state;

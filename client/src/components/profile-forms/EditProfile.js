@@ -1,15 +1,15 @@
-import React, { useState, Fragment, useEffect, useReducer } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createProfile, getCurrentProfile } from "../../actions/profile";
+import React, { useState, Fragment, useEffect, useReducer } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
 // Small reducer to handle updating the state when
 // input fields are changed
 const formUpdateReducer = (state, action) => {
   return {
     ...state,
-    [action.type]: action.payload,
+    [action.type]: action.payload
   };
 };
 
@@ -19,22 +19,22 @@ const initializeState = (profileStateSlice) => {
   const { loading, profile } = profileStateSlice;
 
   return {
-    company: loading || !profile.company ? "" : profile.company,
-    website: loading || !profile.website ? "" : profile.website,
-    location: loading || !profile.location ? "" : profile.location,
-    status: loading || !profile.status ? "" : profile.status,
-    skills: loading || !profile.skills ? "" : profile.skills.join(","),
+    company: loading || !profile.company ? '' : profile.company,
+    website: loading || !profile.website ? '' : profile.website,
+    location: loading || !profile.location ? '' : profile.location,
+    status: loading || !profile.status ? '' : profile.status,
+    skills: loading || !profile.skills ? '' : profile.skills.join(','),
     githubusername:
-      loading || !profile.githubusername ? "" : profile.githubusername,
-    bio: loading || !profile.bio ? "" : profile.bio,
-    twitter: loading || !profile.social.twitter ? "" : profile.social.twitter,
+      loading || !profile.githubusername ? '' : profile.githubusername,
+    bio: loading || !profile.bio ? '' : profile.bio,
+    twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
     facebook:
-      loading || !profile.social.facebook ? "" : profile.social.facebook,
+      loading || !profile.social.facebook ? '' : profile.social.facebook,
     linkedin:
-      loading || !profile.social.linkedin ? "" : profile.social.linkedin,
-    youtube: loading || !profile.social.youtube ? "" : profile.social.youtube,
+      loading || !profile.social.linkedin ? '' : profile.social.linkedin,
+    youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
     instagram:
-      loading || !profile.social.instagram ? "" : profile.social.instagram,
+      loading || !profile.social.instagram ? '' : profile.social.instagram
   };
 };
 
@@ -68,7 +68,7 @@ const EditProfile = ({ profileSlice, createProfile, getCurrentProfile }) => {
     facebook,
     linkedin,
     youtube,
-    instagram,
+    instagram
   } = profileInfo;
 
   // dispatch (from useReducer above) action with
@@ -261,11 +261,11 @@ const EditProfile = ({ profileSlice, createProfile, getCurrentProfile }) => {
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profileSlice: PropTypes.object.isRequired,
+  profileSlice: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  profileSlice: state.profile,
+  profileSlice: state.profile
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(

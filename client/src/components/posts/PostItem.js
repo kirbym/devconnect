@@ -29,7 +29,7 @@ const PostItem = ({
         {showActions && (
           <Fragment>
             <button
-              onClick={e => addLike(_id)}
+              onClick={(e) => addLike(_id)}
               type="button"
               className="btn btn-light"
             >
@@ -37,7 +37,7 @@ const PostItem = ({
               {likes.length > 0 && <span>{likes.length}</span>}
             </button>
             <button
-              onClick={e => removeLike(_id)}
+              onClick={(e) => removeLike(_id)}
               type="button"
               className="btn btn-light"
             >
@@ -51,7 +51,7 @@ const PostItem = ({
             </Link>
             {!auth.loading && user === auth.user._id && (
               <button
-                onClick={e => deletePost(_id)}
+                onClick={(e) => deletePost(_id)}
                 type="button"
                 className="btn btn-danger"
               >
@@ -78,11 +78,10 @@ PostItem.propTypes = {
   showActions: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { addLike, removeLike, deletePost }
-)(PostItem);
+export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
+  PostItem
+);
